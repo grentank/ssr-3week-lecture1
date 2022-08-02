@@ -1,7 +1,8 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import template from '../template';
-import { Student } from '../../db/models';
+import { Student, Meeting, Mentor } from '../../db/models';
+import copy from '../components/utils/copy';
 
 const router = express.Router();
 
@@ -14,7 +15,6 @@ router.post('/students', async (req, res) => {
       name: req.body.name,
     },
   });
-  console.log(currentStudent);
   if (!created) res.sendStatus(418);
   else res.sendStatus(200);
 });
@@ -43,6 +43,38 @@ router.post('/login', async (req, res) => {
 router.get('/logout', (req, res) => {
   res.clearCookie('user_sid'); // Удалить куку
   req.session.destroy(); // Завершить сессию
+  res.sendStatus(200);
+});
+
+router.post('/meetings', async (req, res) => {
+  const createdMeeting = await Meeting.create({
+    studentId: req.session?.studentId,
+    mentorId: parseInt(req.body.selectMentor),
+    beginTime: req.body.meetingTime,
+  });
+  const newMeeting = await Meeting.findOne({
+    where: {
+      id: createdMeeting.id,
+    },
+    include: [Mentor, Student],
+  });
+  res.json(newMeeting);
+});
+
+router.get('/meetings', async (req, res) => {
+  const allMeetings = await Meeting.findAll({
+    include: [Mentor, Student],
+    // добавили выемки из таблиц менторов и студентов вдобавок к встречам
+  });
+  res.json(allMeetings);
+});
+
+router.delete('/meetings/:id', async (req, res) => {
+  await Meeting.destroy({
+    where: {
+      id: parseInt(req.params.id),
+    },
+  });
   res.sendStatus(200);
 });
 

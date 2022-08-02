@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 export default function PrivateNavbar({ currentStudent, setCurrentStudent }) {
   const navigate = useNavigate();
@@ -22,16 +22,18 @@ export default function PrivateNavbar({ currentStudent, setCurrentStudent }) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/">Home</a>
+              <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/">My meetings</a>
+              <NavLink className="nav-link" to="/mymeetings">Встречи студента: {currentStudent.name}</NavLink>
             </li>
+          </ul>
+          <div className="nav-item me-5">
             Hello,
             {' '}
             {currentStudent.name}
             {' '}
-          </ul>
+          </div>
           <button onClick={logoutHandler} type="button" className="btn btn-outline-secondary m-2">Logout</button>
         </div>
       </div>

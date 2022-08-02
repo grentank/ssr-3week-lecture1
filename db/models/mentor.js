@@ -15,8 +15,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Mentor.init({
     name: DataTypes.STRING,
-    nickname: DataTypes.STRING,
-    hashedPassword: DataTypes.TEXT,
   }, {
     sequelize,
     modelName: 'Mentor',

@@ -22,34 +22,37 @@ export default function LoginPage({ setCurrentStudent }) {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   return (
-    <form onSubmit={submitHandler}>
-      <div>
-        LOGIN:
+    <div className="row justify-content-center">
+      <div className="col-5">
+        <form onSubmit={submitHandler}>
+          <div className="mb-3">
+            <label htmlFor="loginNickname" className="form-label">Nickname</label>
+            <input
+              value={input.nickname}
+              onChange={changeHandler}
+              type="text"
+              name="nickname"
+              className="form-control"
+              id="loginNickname"
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="loginPassword" className="form-label">Password</label>
+            <input
+              value={input.password}
+              onChange={changeHandler}
+              type="password"
+              name="password"
+              className="form-control"
+              id="loginPassword"
+            />
+          </div>
+          <div className="row justify-content-center mt-3">
+            <button type="submit" className="btn btn-outline-success">Login</button>
+            {error && <div style={{ color: 'red', background: 'yellow' }}>Password is incorrect</div>}
+          </div>
+        </form>
       </div>
-      <div className="mb-3">
-        <label htmlFor="loginNickname" className="form-label">Nickname</label>
-        <input
-          value={input.nickname}
-          onChange={changeHandler}
-          type="text"
-          name="nickname"
-          className="form-control"
-          id="loginNickname"
-        />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="loginPassword" className="form-label">Password</label>
-        <input
-          value={input.password}
-          onChange={changeHandler}
-          type="password"
-          name="password"
-          className="form-control"
-          id="loginPassword"
-        />
-      </div>
-      <button type="submit" className="btn btn-primary">Login</button>
-      {error && <div style={{ color: 'red', background: 'yellow' }}>Password is incorrect</div>}
-    </form>
+    </div>
   );
 }

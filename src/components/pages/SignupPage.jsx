@@ -20,45 +20,48 @@ export default function SignupPage() {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   return (
-    <form onSubmit={submitHandler}>
-      <div>
-        SIGN UP:
+    <div className="row justify-content-center">
+      <div className="col-5">
+        <form onSubmit={submitHandler}>
+          <div className="mb-3">
+            <label htmlFor="signupNickname" className="form-label">Nickname</label>
+            <input
+              value={input.nickname}
+              onChange={changeHandler}
+              type="text"
+              name="nickname"
+              className="form-control"
+              id="signupNickname"
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="signupName" className="form-label">Actual name</label>
+            <input
+              value={input.name}
+              onChange={changeHandler}
+              type="text"
+              name="name"
+              className="form-control"
+              id="signupName"
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="signupPassword" className="form-label">Password</label>
+            <input
+              value={input.password}
+              onChange={changeHandler}
+              type="password"
+              name="password"
+              className="form-control"
+              id="signupPassword"
+            />
+          </div>
+          <div className="row justify-content-center">
+            <button type="submit" className="btn btn-outline-success">Sign up</button>
+            {error && <div style={{ color: 'red' }}>This nickname already exists</div>}
+          </div>
+        </form>
       </div>
-      <div className="mb-3">
-        <label htmlFor="signupNickname" className="form-label">Nickname</label>
-        <input
-          value={input.nickname}
-          onChange={changeHandler}
-          type="text"
-          name="nickname"
-          className="form-control"
-          id="signupNickname"
-        />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="signupName" className="form-label">Actual name</label>
-        <input
-          value={input.name}
-          onChange={changeHandler}
-          type="text"
-          name="name"
-          className="form-control"
-          id="signupName"
-        />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="signupPassword" className="form-label">Password</label>
-        <input
-          value={input.password}
-          onChange={changeHandler}
-          type="password"
-          name="password"
-          className="form-control"
-          id="signupPassword"
-        />
-      </div>
-      <button type="submit" className="btn btn-primary">Sign up</button>
-      {error && <div style={{ color: 'red' }}>This nickname already exists</div>}
-    </form>
+    </div>
   );
 }
